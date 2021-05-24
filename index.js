@@ -18,14 +18,6 @@ app.get('/', (req, res) => {
 app.use(express.static('public'));
 
 /*error handler*/
-const bodyParser = require('body-parser'),
-    methodOverride = require('method-overide');
- 
-app.use(bodyParser.urlencoded({extended: true}));
-
-app.use(bodyParser.json());
-app.use(methodOverride());
-
 app.use((err, req, res, next) => {
     console.error(err.stack);
     res.status(500).send('Something broke!');
