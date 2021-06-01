@@ -3,4 +3,63 @@
         <head>
             <title>quikFlix Documentation</title>
         </head>
+        <body>
+            <table>
+                <tr>
+                    <th>Request</th>
+                    <th>URL</th>
+                    <th>Response</th>
+                </tr>
+                <tr>
+                    <td>Get</td>
+                    <td>/movies</td>
+                    <td>Return list of all movies.</td>
+                </tr>
+                <tr>
+                    <td>Get</td>
+                    <td>/users/:userName/myMovies</td>
+                    <td>Return list of personal top movies.</td>
+                </tr>
+                <tr>
+                    <td>Get</td>
+                    <td>/movies/:title</td>
+                    <td>Return data about specific movie</td>
+                </tr>
+                <tr>
+                    <td>Get</td>
+                    <td>/genres/:genre</td>
+                    <td>Return data aout genre by name.</td>
+                </tr>
+                <tr>
+                    <td>Get</td>
+                    <td>/directors/:name</td>
+                    <td>Return data about director by name.</td>
+                </tr>
+                <tr>
+                    <td>Post</td>
+                    <td>/users</td>
+                    <td>Allow new users to register with API.</td>
+                </tr>
+                <tr>
+                    <td>Put</td>
+                    <td>/users/:userName/:email</td>
+                    <td>Allow users to update username and email.</td>
+                </tr>
+                <tr>
+                    <td>Put</td>
+                    <td>/users/:userName/myMovies/:title/:year/:genre/:director</td>
+                    <td>Allow users to add movie to their list of favorites.</td>
+                </tr>
+                <tr>
+                    <td>Delete</td>
+                    <td>/movies/:userName/myMovies/:movieName</td>
+                    <td>Allow users to remove movie from their list of favorites.</td>
+                </tr>
+                <tr>
+                    <td>Delete</td>
+                    <td>/users/:userName</td>
+                    <td>Allow user to deregister account.</td>
+                </tr>
+            </table>
+        </body>
     </html>
