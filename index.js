@@ -114,7 +114,7 @@ let users = [
 }
 ];
 
-let allMovies = users.topMovies;
+let allMovies = [users.topMovies];
 
 /*requests to navigate the site*/ 
 app.get('/', (req, res) => {
@@ -176,13 +176,14 @@ app.post('/users', (req, res) => {
     }
 });
 
-app.put('/users/:userName/:email', (req, res) => {
+app.put('/users/:id/:userName/:email', (req, res) => {
     let user = users.find((user) => {
-        return user.userName === req.params.userName
+        return user.id === req.params.id
     });
 
     if (user) {
-        user.userName[req.params.userName] = email[req.params.email];
+        user.userName = req.params.userName;
+        user.email = req.params.email;
         res.status(200).send('Your username and email have been updated to ' + req.params.userName + ' & '
         + req.params.email + '.');
     } else {
