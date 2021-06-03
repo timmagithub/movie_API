@@ -190,20 +190,23 @@ app.put('/users/:id/:userName/:email', (req, res) => {
         res.status(400).send('User with ' + req.params.userName + ' username not found.');
     }
 });
-/* 
+
 app.post('/users/:userName/myMovies/:title/:director/:year/:genre', (req, res) =>{
     let user = users.find(req.params.userName);
     const myMovies = user.topMovies,
-        movieKeys = Object.keys(topMovies),
-        keys = req.params,
+        keys = req.params;
 
-   if (user && keys === movieKeys) {
-       myMovies.push(Object);
+   if (user && keys) {
+       topMovies.title = req.params.title;
+       topMovies.director = req.params.director;
+       topMovies.year = req.params.year;
+       topMovies.genre = req.params.genre;
+       myMovies.push(req.params);
        res.status(200).send('Movie has been added')
     } else {
-       res.status(400).send('Movie could not be added. Make sure you are using the correct username and all movie fields have been completed.') 
+       res.status(400).send('Movie could not be added. Make sure you are using the correct username.') 
     } 
-}); */
+}); 
 
 app.delete('/users/:userName/myMovies/:title', (req, res) => {
     let user = users.find((user) => {
