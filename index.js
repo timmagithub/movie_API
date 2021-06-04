@@ -244,10 +244,10 @@ app.get('/directors/:name', (req, res) => {
 });
 
 /* create a new user */
-app.post('/users/:username/:email', (req, res) => {
+app.post('/users/:userName/:email', (req, res) => {
     let newUser = req.params;
 
-    if (!newUser.username && !newUser.email) {
+    if (!newUser.userName && !newUser.email) {
         const message = 'An username and email is required.'
         res.status(400).send(message);
     } else {
