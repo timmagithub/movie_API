@@ -52,7 +52,7 @@ let genres = [
 
 let users = [
 {
-    id: 1,
+    id: '1',
     userName: 'Tim',
     email: 'timmanews@gmail.com',
     topMovies: [
@@ -247,7 +247,7 @@ app.get('/directors/:name', (req, res) => {
 app.post('/users/:username/:email', (req, res) => {
     let newUser = req.params;
 
-    if (!newUser.userName && !newUser.email) {
+    if (!newUser.username && !newUser.email) {
         const message = 'An username and email is required.'
         res.status(400).send(message);
     } else {
@@ -261,7 +261,7 @@ app.post('/users/:username/:email', (req, res) => {
 /* update username or email using id to find user */
 app.put('/users/:id/:userName/:email', (req, res) => {
     let user = users.find((user) => {
-        return user.id === +req.params.id
+        return user.id === req.params.id
     });
 
     if (user) {
