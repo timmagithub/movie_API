@@ -1,188 +1,18 @@
 const express = require('express'),
     morgan = require('morgan'),
     bodyParser = require('body-parser'),
-    uuid = require('uuid');
+    uuid = require('uuid'),
+    mongoose = require('mongoose'),
+    Models = require('./models.js');
 const { title, send } = require('process');
 
+const Movies = Models.Movie;
+const Users = Models.User;
 const app = express();
 
+mongoose.connect('mongodb://localhost:27017/quikFlix', {useNewUrlParser: true, useUnifiedTopology: true});
+
 app.use(morgan('common'));
-
-let directors = [
-{
-    name: 'Stanley Kubrik',
-    birthPlace: 'Manhattan, NY',
-    birthYear: '1928',
-    deathYear: '1999'
-},
-{
-    name: 'Terry Gilliam',
-    birthPlace: 'Minneapolis, MN',
-    birthYear: '1940',
-    deathYear: ''
-}
-];
-
-let genres = [
-{
-    genre: 'Action',
-    description: 'Genre in which the characters are put into situations of harm, violence, and chaos.'
-}, 
-{
-    genre: 'Thriller',
-    description: 'Genre which invokes the feeling of suspense and alarm.'
-},  
-{
-    genre: 'Comedy',
-    description: 'Genre of film using humor as means of entertainment.'
-}, 
-{
-    genre: 'Drama',
-    description: 'Genre of stories intended to be of a more serious, sometimes heartfelt nature.'
-},
-{
-    genre: 'Horror',
-    description: 'Genre of film that uses suspense and mood to create the feeling of fear.'
-},
-{
-    genre: 'Mystery',
-    description: 'Genre of film that has a problem requiring a solution that must be solved.'
-}
-];
-
-let users = [
-{
-    id: '1',
-    userName: 'Tim',
-    email: 'timmanews@gmail.com',
-    topMovies: [
-        { 
-        title: 'Fear and Loathing in Las Vegas',
-        director: 'Terry Gilliam',
-        year: '1998',
-        genre: ['Comedy', 'Drama']
-    },
-    { 
-        title: 'The Matrix',
-        director: 'The Wachowski Brothers',
-        year: '1999',
-        genre: ['Action', 'Thriller']
-    },
-    { 
-        title: 'There Will Ee Blood',
-        director: 'Paul Thomas Anderson',
-        year: '2007',
-        genre: ['Drama', 'Thriller']
-    },
-    { 
-        title: 'Shaun of the Dead',
-        director: 'Edgar Wright',
-        year: '2004',
-        genre: ['Comedy', 'Horror']
-    },
-    { 
-        title: 'Tropic Thunder',
-        director: 'Ben Stiller',
-        year: '2008',
-        genre: ['Comedy', 'Action']
-    },
-    { 
-        title: 'Shutter Island',
-        director: 'Martin Scorsese',
-        year: '2010',
-        genre: ['Thriller', 'Mystery']
-    },
-    { 
-        title: 'Raiders of the Lost Ark',
-        director: 'Steven Spielberg',
-        year: '1981',
-        genre: ['Action',  'Thriller']
-    },
-    { 
-        title: 'The Shining',
-        director: 'Stanley Kubrick',
-        year: '1980',
-        genre: ['Horror', 'Thriller']
-    },
-    { 
-        title: 'The Proposition',
-        director: 'John Hillcoat',
-        year: '2005',
-        genre: ['Drama', 'Action']
-    },
-    { 
-        title: 'Birdman or (The Unexpected Virtue of Ignorance)',
-        director: 'Alejandro G. Iñárritu',
-        year: '2014',
-        genre: ['Comedy', 'Drama']
-    },
-    ]
-}
-];
-
-
-let allMovies = [
-    { 
-        title: 'Fear and Loathing in Las Vegas',
-        director: 'Terry Gilliam',
-        year: '1998',
-        genre: ['Comedy', 'Drama']
-    },
-    { 
-        title: 'The Matrix',
-        director: 'The Wachowski Brothers',
-        year: '1999',
-        genre: ['Action', 'Thriller']
-    },
-    { 
-        title: 'There Will Ee Blood',
-        director: 'Paul Thomas Anderson',
-        year: '2007',
-        genre: ['Drama', 'Thriller']
-    },
-    { 
-        title: 'Shaun of the Dead',
-        director: 'Edgar Wright',
-        year: '2004',
-        genre: ['Comedy', 'Horror']
-    },
-    { 
-        title: 'Tropic Thunder',
-        director: 'Ben Stiller',
-        year: '2008',
-        genre: ['Comedy', 'Action']
-    },
-    { 
-        title: 'Shutter Island',
-        director: 'Martin Scorsese',
-        year: '2010',
-        genre: ['Thriller', 'Mystery']
-    },
-    { 
-        title: 'Raiders of the Lost Ark',
-        director: 'Steven Spielberg',
-        year: '1981',
-        genre: ['Action',  'Thriller']
-    },
-    { 
-        title: 'The Shining',
-        director: 'Stanley Kubrick',
-        year: '1980',
-        genre: ['Horror', 'Thriller']
-    },
-    { 
-        title: 'The Proposition',
-        director: 'John Hillcoat',
-        year: '2005',
-        genre: ['Drama', 'Action']
-    },
-    { 
-        title: 'Birdman or (The Unexpected Virtue of Ignorance)',
-        director: 'Alejandro G. Iñárritu',
-        year: '2014',
-        genre: ['Comedy', 'Drama']
-    },
-];
 
 /*requests to navigate the site*/ 
 app.get('/', (req, res) => {
@@ -191,138 +21,197 @@ app.get('/', (req, res) => {
 
 /* get list of all movies */
 app.get('/movies', (req, res) => {
-    res.json(allMovies);
+    Movies.find()
+        .then((movies) => {
+            res.status(201).json(movies);
+        })
+        .catch((err) => {
+            console.error(err);
+            res.status(500).send('Error ' + err);
+        });
 });    
 
 /* get list of users */
 app.get('/users', (req, res) => {
-    res.json(users);
+    Users.find()
+        .then((users) => {
+            res.status(201).json(users);
+        })
+        .catch.err((err) => {
+            console.error(err);
+            res.status(500).send('Error ' + err);
+        });
 })
 
 /* get user's list of top movies */
 app.get('/users/:userName/myMovies', (req, res) => {
-    let user = users.find((user) => {
-        return user.userName === req.params.userName;
-    });
-    if (user) {
-        let myMovies = user.topMovies;
-        res.json(myMovies);
-    } else {
-        res.status(400).send('User ' + req.params.userName + ' not found.');
-    }    
+    Users.findOne({username: req.params.username})
+    .then((movieList) => {
+        res.json(movieList);
+    })
+    .catch ((err) => {
+        console.error(err);
+        res.status(500).send('Error ' + err)
+    }); 
 });
 
 /* get info on movie by title */
 app.get('/movies/:title', (req, res) => {
-    res.json(allMovies.find((movie) => {
-        return movie.title === req.params.title
-    }));
+    Movies.findOne({title: req.params.title})
+    .then((movie) => {
+        res.json(movie);
+    })
+    .catch((err) => {
+        console.error(err);
+        res.status(500).send('Error ' + err);
+    });
 });
 
 /* get list of genres */
 app.get('/genres', (req, res) => {
-    res.json(genres);
+    Movies.find({genre: req.params.genre})
+    .then((genre) => {
+        res.json(genre);
+    })
+    .catch((err) => {
+        console.error(err);
+        res.status(500).send('Error ' + err);
+    });
 });
 
 /* get genre info by name */
 app.get('/genres/:genre', (req, res) => {
-    res.json(genres.find((type) => {
-        return type.genre === req.params.genre
-    }));
+    Movies.find({'genre:genrename': req.params.genre})
+    .then((genre) => {
+        res.json(genre);
+    })
+    .catch((err) => {
+        console.error(err);
+        res.status(500).send('Error ' + err);
+    });
 });
 
 /* get list of directors */
 app.get('/directors', (req, res) => {
-    res.json(directors);
+    Movies.find({director: req.params.director})
+    .then((directors) => {
+        res.json(directors);
+    })
+    .catch((err) => {
+        console.error(err);
+        res.status(500).send('Error ' + err);
+    });
 });
 
 /* get info on director */
 app.get('/directors/:name', (req, res) => {
-    res.json(directors.find((director) => {
-        return director.name === req.params.name
-    }));
+    Movies.find({'director.name': req.params.name})
+    .then((director) => {
+        res.json(director);
+    })
+    .catch((err) => {
+        console.error(err);
+        res.status(500).send('Error ' + err);
+    });
 });
 
 /* create a new user */
-app.post('/users/:userName/:email', (req, res) => {
-    let newUser = req.params;
-
-    if (!newUser.userName && !newUser.email) {
-        const message = 'An username and email is required.'
-        res.status(400).send(message);
-    } else {
-        newUser.id = uuid.v4();
-        newUser.topMovies = [];
-        users.push(newUser);
-        res.status(200).send(newUser);
-    }
+app.post('/users/', (req, res) => {
+    Users.findOne({username: req.params.username})
+    .then((user) => {
+        if (user) {
+            return res.status(400).send(req.body.username + 'already exists');
+        } else {
+            Users
+                .create({
+                    username: req.body.username,
+                    password: req.body.password,
+                    email: req.body.email,
+                    birth_date: req.body.birth_date
+                })
+                .then ((user) => {
+                    res.status(201).json(user)})
+                .catch((err) => {
+                    console.error(err);
+                    res.status(500).send('Error ' + err);
+                })
+        }
+    })
+    .catch((err) => {
+        console.error(err);
+        res.status(500).send('Error ' + err);
+    }); 
 });
 
-/* update username or email using id to find user */
-app.put('/users/:id/:userName/:email', (req, res) => {
-    let user = users.find((user) => {
-        return user.id === req.params.id
+/* update user info by username */
+app.put('/users/:username', (req, res) => {
+    Users.findOneAndUpdate({username: req.param.username},
+        {$set: {
+            username:req.body.username,
+            password: req.body.password,
+            email: req.body.email,
+            birth_date: req.body.birth_date
+        }
+    },
+    {new: true},
+    (err, updatedUser) => {
+        if(err) {
+            console.error(err);
+            res.status(500).send('Error ' + err);
+        } else {
+            res.json(updatedUser);
+        }
     });
-
-    if (user) {
-        user.userName = req.params.userName;
-        user.email = req.params.email;
-        res.status(200).send('Your username and email have been updated to ' + req.params.userName + ' & '
-        + req.params.email + '.');
-    } else {
-        res.status(400).send('User with ' + req.params.userName + ' username not found.');
-    }
 });
 
 /* add a new movie to user's top movie list */
-app.post('/users/:userName/myMovies/:title/:director/:year/:genre', (req, res) =>{
-    let user = users.find((user) => {
-        return user.userName === req.params.userName
-    });
-    let newMovie = {};
-
-   if (user && req.params) {
-       newMovie.title = req.params.title;
-       newMovie.director = req.params.director;
-       newMovie.year = req.params.year;
-       newMovie.genre = req.params.genre.split(' ');
-       user.topMovies.push(newMovie);
-       res.status(200).send('Movie has been added')
-    } else {
-       res.status(400).send('Movie could not be added. Make sure you are using the correct username.') 
-    } 
+app.post('/users/:userName/myMovies/:movieId', (req, res) =>{
+    Users.findOneAndUpdate({username: req.params.username}, 
+        {
+            $push: {movieList: req.params.movieId}
+        },
+        {new: true},
+        (err, updatedUser) => {
+            if (err) {
+                console.errer(err);
+                res.status(500).send('Error ' + err);
+            } else {
+                res.json(updatedUser);
+            }
+        });
 }); 
 
-/* delete movie from user's top movie list by title */
-app.delete('/users/:userName/myMovies/:title', (req, res) => {
-    let user = users.find((user) => {
-        return user.userName === req.params.userName
-    });
-    let movie = user.topMovies.find((movie) => {
-        return movie.title === req.params.title
-    });
-
-    if (user && movie) {
-        topMovies = user.topMovies.filter((obj) => {
-            return obj.title !== req.params.title
+/* delete movie from user's top movie list by id */
+app.delete('/users/:userName/myMovies/:movieId', (req, res) => {
+    Users.findOneAndUpdate({username: req.params.username},
+        {$pull: {
+            movieList: req.params.movieId
+        }},
+        {new: true},
+        (err, updatedUser) => {
+            if(err) {
+                console.error(err);
+                res.status(500).send('Error ' + err);
+            } else {
+                res.json(updatedUser);
+            }
         });
-        res.status(201).send(req.params.title + ' was deleted from your list.')
-    }
 });
 
 /* delete user by username */
 app.delete('/users/:userName', (req, res) => {
-    let user = users.find((user) => {
-        return user.userName === req.params.userName
-    });
-    if (user) {
-        users = users.filter((obj) => {
-            return obj.userName !== req.params.userName
+   Users.findOneAndRemove({username: req.params.username})
+        .then((user) => {
+            if(!user) {
+                res.status(400).send(req.params.username + ' was not found.');
+            } else {
+                res.status(200).send(req.params.username + ' was deleted.');
+            }
+        })
+        .catch((err) => {
+            console.error(err);
+            res.status(500).send('Error ' + err);
         });
-        res.status(201).send('User ' + req.params.userName + ' was deleted.')
-    } else {
-        res.status(400).send('User not found.')
-    }
 });    
 
 app.use(express.static('public'));
