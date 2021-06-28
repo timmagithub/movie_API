@@ -37,7 +37,7 @@ app.get('/users', (req, res) => {
         .then((users) => {
             res.status(201).json(users);
         })
-        .catch.err((err) => {
+        .catch((err) => {
             console.error(err);
             res.status(500).send('Error ' + err);
         });
@@ -49,7 +49,7 @@ app.get('/users/:userName/myMovies', (req, res) => {
     .then((movieList) => {
         res.json(movieList);
     })
-    .catch ((err) => {
+    .catch((err) => {
         console.error(err);
         res.status(500).send('Error ' + err)
     }); 
@@ -69,7 +69,7 @@ app.get('/movies/:title', (req, res) => {
 
 /* get list of genres */
 app.get('/genres', (req, res) => {
-    Movies.find({genre: req.params.genre})
+    Movies.find({'genre': {}})
     .then((genre) => {
         res.json(genre);
     })
@@ -81,7 +81,7 @@ app.get('/genres', (req, res) => {
 
 /* get genre info by name */
 app.get('/genres/:genre', (req, res) => {
-    Movies.find({'genre:genrename': req.params.genre})
+    Movies.findOne({'genre.genrename': req.params.genre})
     .then((genre) => {
         res.json(genre);
     })
@@ -105,7 +105,7 @@ app.get('/directors', (req, res) => {
 
 /* get info on director */
 app.get('/directors/:name', (req, res) => {
-    Movies.find({'director.name': req.params.name})
+    Movies.findOne({'director.name': req.params.name})
     .then((director) => {
         res.json(director);
     })
@@ -116,7 +116,7 @@ app.get('/directors/:name', (req, res) => {
 });
 
 /* create a new user */
-app.post('/users/', (req, res) => {
+app.post('/users', (req, res) => {
     Users.findOne({username: req.params.username})
     .then((user) => {
         if (user) {
@@ -124,9 +124,9 @@ app.post('/users/', (req, res) => {
         } else {
             Users
                 .create({
-                    username: req.body.username,
-                    password: req.body.password,
-                    email: req.body.email,
+                    username: 'req.body.username',
+                    password: 'req.body.password',
+                    email: 'req.body.email',
                     birth_date: req.body.birth_date
                 })
                 .then ((user) => {
@@ -145,11 +145,11 @@ app.post('/users/', (req, res) => {
 
 /* update user info by username */
 app.put('/users/:username', (req, res) => {
-    Users.findOneAndUpdate({username: req.param.username},
+    Users.findOneAndUpdate({username: req.params.username},
         {$set: {
-            username:req.body.username,
-            password: req.body.password,
-            email: req.body.email,
+            username: 'req.body.username',
+            password: 'req.body.password',
+            email: 'req.body.email',
             birth_date: req.body.birth_date
         }
     },
@@ -165,10 +165,10 @@ app.put('/users/:username', (req, res) => {
 });
 
 /* add a new movie to user's top movie list */
-app.post('/users/:userName/myMovies/:movieId', (req, res) =>{
+app.post('/users/:username/myMovies/:movieId', (req, res) =>{
     Users.findOneAndUpdate({username: req.params.username}, 
         {
-            $push: {movieList: req.params.movieId}
+            $push: {movieList: 'req.params.movieId'}
         },
         {new: true},
         (err, updatedUser) => {
@@ -182,7 +182,7 @@ app.post('/users/:userName/myMovies/:movieId', (req, res) =>{
 }); 
 
 /* delete movie from user's top movie list by id */
-app.delete('/users/:userName/myMovies/:movieId', (req, res) => {
+app.delete('/users/:username/myMovies/:movieId', (req, res) => {
     Users.findOneAndUpdate({username: req.params.username},
         {$pull: {
             movieList: req.params.movieId
@@ -199,7 +199,7 @@ app.delete('/users/:userName/myMovies/:movieId', (req, res) => {
 });
 
 /* delete user by username */
-app.delete('/users/:userName', (req, res) => {
+app.delete('/users/:username', (req, res) => {
    Users.findOneAndRemove({username: req.params.username})
         .then((user) => {
             if(!user) {
