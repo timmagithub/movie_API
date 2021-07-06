@@ -38,27 +38,27 @@
                 <tr>
                     <td>Post</td>
                     <td>/users</td>
-                    <td>Allow new users to register with API.</td>
+                    <td>Allow new users to register with API, providing data in JSON format.</td>
                 </tr>
                 <tr>
                     <td>Put</td>
-                    <td>/users//:id/:userName/:email</td>
-                    <td>Allow users to update username and email.</td>
+                    <td>/users/:userName/</td>
+                    <td>Allow users to update info using username as request parameter and info as JSON.</td>
                 </tr>
                 <tr>
                     <td>Put</td>
-                    <td>/users/:userName/myMovies/:ObjectId</td>
-                    <td>Allow users to add movie to their list of favorites.</td>
+                    <td>/users/:userName/myMovies/:movieId</td>
+                    <td>Allow users to add movie to their list of favorites providng both userName and movieID as request parameters.</td>
                 </tr>
                 <tr>
                     <td>Delete</td>
-                    <td>/movies/:userName/myMovies/:ObjectId</td>
-                    <td>Allow users to remove movie from their list of favorites.</td>
+                    <td>/movies/:userName/myMovies/:movieId</td>
+                    <td>Allow users to remove movie from their list of favorites providng both userName and movieID as request parameters.</td>
                 </tr>
                 <tr>
                     <td>Delete</td>
                     <td>/users/:userName</td>
-                    <td>Allow user to deregister account.</td>
+                    <td>Allow user to deregister account providing userName as request parameter.</td>
                 </tr>
             </table>
         </body>
