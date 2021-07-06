@@ -9,7 +9,7 @@ let movieSchema = mongoose.Schema({
     },
     director: {
         name: String,
-        birth_date: String,
+        birthDate: String,
         bio: String
     },
     image: String,
@@ -18,10 +18,10 @@ let movieSchema = mongoose.Schema({
 });
 
 let userSchema = mongoose.Schema({
-    username: {type: String, required: true},
+    userName: {type: String, required: true},
     password: {type: String, required: true},
     email: {type: String, required: true},
-    birth_date: Date,
+    birthDate: Date,
     movieList: [{type: mongoose.Schema.Types.ObjectId, ref: 'Movie'}]
 });
 
