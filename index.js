@@ -8,12 +8,9 @@ const Movies = Models.Movie;
 const Users = Models.User;
 const app = express();
 
+app.use(bodyParser.urlencoded({extended: true}));
+
 app.use(express.json());
-
-let auth = require('./auth')(app);
-
-const passport = require('passport');
-require('./passport');
 
 mongoose.connect('mongodb://localhost:27017/quikFlix', {
     useNewUrlParser: true, 
@@ -23,13 +20,18 @@ mongoose.connect('mongodb://localhost:27017/quikFlix', {
 
 app.use(morgan('common'));
 
+let auth = require('./auth')(app);
+
+const passport = require('passport');
+require('./passport');
+
 /*requests to navigate the site*/ 
 app.get('/', (req, res) => {
     res.send('Welcome to quikFlix');
 });
 
 /* get list of all movies */
-app.get('/movies', (req, res) => {
+app.get('/movies', passport.authenticate('jwt', {session:false}), (req, res) => {
     Movies.find()
         .then((movies) => {
             res.status(201).json(movies);
