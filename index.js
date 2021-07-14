@@ -20,9 +20,24 @@ mongoose.connect('mongodb://localhost:27017/quikFlix', {
 
 app.use(morgan('common'));
 
+const cors = require('cors');
+
+let allowedOrigins = ['http://localhost:8080', 'http://testsite.com'];
+app.use(cors({
+    origin: (origin, callback) => {
+        if(!origin) return callback(null, true);
+        if(allowedOrigins.indexOf(origin) === -1){
+            let message = 'The CORS policy for this application doesn\'t allow access from origin ' + origin;
+            return callback(new Error(message ), false);
+        }
+        return callback(null, true);
+    }
+}));
+
 let auth = require('./auth')(app);
 
 const passport = require('passport');
+const { check } = require('express-validator');
 require('./passport');
 
 /*requests to navigate the site*/ 
@@ -43,7 +58,7 @@ app.get('/movies', passport.authenticate('jwt', {session:false}), (req, res) => 
 });    
 
 /* get user's list of top movies */
-app.get('/users/:userName/myMovies', (req, res) => {
+app.get('/users/:userName/myMovies', passport.authenticate('jwt', {session:false}), (req, res) => {
     Users.findOne({userName: req.params.userName})
     .then((movieList) => {
         res.json(movieList);
@@ -55,7 +70,7 @@ app.get('/users/:userName/myMovies', (req, res) => {
 });
 
 /* get info on movie by title */
-app.get('/movies/:title', (req, res) => {
+app.get('/movies/:title', passport.authenticate('jwt', {session:false}), (req, res) => {
     Movies.findOne({title: req.params.title})
     .then((movie) => {
         res.json(movie);
@@ -67,7 +82,7 @@ app.get('/movies/:title', (req, res) => {
 });
 
 /* get genre info by name */
-app.get('/genres/:genre', (req, res) => {
+app.get('/genres/:genre', passport.authenticate('jwt', {session:false}), (req, res) => {
     Movies.find({'genre.genrename': req.params.genre})
     .then((genre) => {
         res.json(genre);
@@ -79,7 +94,7 @@ app.get('/genres/:genre', (req, res) => {
 });
 
 /* get info on director */
-app.get('/directors/:name', (req, res) => {
+app.get('/directors/:name', passport.authenticate('jwt', {session:false}), (req, res) => {
     Movies.findOne({'director.name': req.params.name})
     .then((director) => {
         res.json(director);
@@ -91,7 +106,20 @@ app.get('/directors/:name', (req, res) => {
 });
 
 /* create a new user */
-app.post('/users', (req, res) => {
+app.post('/users', [
+    check('userName', 'Username is required and must be at least 5 alphanumeric characters long.').isLength({min: 5}),
+    check('userName', 'Username contains non alphanermic characters - not allowed').isAlphanumeric(),
+    check('password', 'Password is required').not().isEmpty(),
+    check('Email', 'Email does not appear to be valid').isEmail()
+    ], (req, res) => {
+
+    let errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(422).json({errors: errors.array()});
+    }
+    
+    let hashedPassword = Users.hashPassword(req.body.password);
+    
     Users.findOne({userName: req.body.userName})
     .then((user) => {
         if (user) {
@@ -100,7 +128,7 @@ app.post('/users', (req, res) => {
             Users
                 .create({
                     userName: req.body.userName,
-                    password: req.body.password,
+                    password: hashedPassword,
                     email: req.body.email,
                     birthDate: req.body.birthDate
                 })
@@ -119,7 +147,7 @@ app.post('/users', (req, res) => {
 });
 
 /* update user info by userName */
-app.put('/users/:userName', (req, res) => {
+app.put('/users/:userName', passport.authenticate('jwt', {session:false}), (req, res) => {
     Users.findOneAndUpdate({userName: req.params.userName},
         {$set: {
             userName: req.body.userName,
@@ -140,7 +168,7 @@ app.put('/users/:userName', (req, res) => {
 });
 
 /* add a new movie to user's top movie list */
-app.post('/users/:userName/myMovies/:movieId', (req, res) => {
+app.post('/users/:userName/myMovies/:movieId', passport.authenticate('jwt', {session:false}), (req, res) => {
     Users.findOneAndUpdate({userName: req.params.userName}, 
         {$push: {
             movieList: req.params.movieId
@@ -158,7 +186,7 @@ app.post('/users/:userName/myMovies/:movieId', (req, res) => {
 }); 
 
 /* delete movie from user's top movie list by id */
-app.delete('/users/:userName/myMovies/:movieId', (req, res) => {
+app.delete('/users/:userName/myMovies/:movieId', passport.authenticate('jwt', {session:false}), (req, res) => {
     Users.findOneAndUpdate({userName: req.params.userName},
         {$pull: {
             movieList: req.params.movieId
@@ -175,7 +203,7 @@ app.delete('/users/:userName/myMovies/:movieId', (req, res) => {
 });
 
 /* delete user by userName */
-app.delete('/users/:userName', (req, res) => {
+app.delete('/users/:userName', passport.authenticate('jwt', {session:false}), (req, res) => {
    Users.findOneAndRemove({userName: req.params.userName})
         .then((user) => {
             if(!user) {
@@ -201,4 +229,7 @@ app.use((err, req, res, next) => {
 
 
 
-app.listen(8080, ()=> {console.log('Listening on port 8080!')});
+const port = process.env.PORT || 8080;
+app.listen(port, '0.0.0.0',() => {
+    console.log('Listening on Port ' + port);
+});
