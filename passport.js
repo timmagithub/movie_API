@@ -3,12 +3,14 @@ const passport = require('passport'),
     Models = require('./models.js'),
     passportJWT = require('passport-jwt');
 
+const {check, validationResult} = require('express-validator');
+
 let Users = Models.User,
     JWTStrategy = passportJWT.Strategy,
     ExtractJWT = passportJWT.ExtractJwt;
 
 passport.use(new LocalStrategy({
-    userNameField: 'userName',
+    usernameField: 'userName',
     passwordField: 'password'
 }, (userName, password, callback) => {
     console.log(userName + ' ' + password);
@@ -17,8 +19,11 @@ passport.use(new LocalStrategy({
             console.log(error);
             return callback(error);
         } if (!user) {
-            console.log('incorrect userName');
-            return callback(null, false, {message: 'Incorrect userName or password.'});
+            console.log('incorrect username');
+            return callback(null, false, {message: 'Incorrect username.'});
+        } if (!user.validatePassword(password)) {
+            console.log('incorrect password');
+            return callback(null, false, {message: 'Incorrect password.'})
         }
         console.log('finished');
         return callback(null, user);
