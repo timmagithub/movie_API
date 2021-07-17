@@ -3,7 +3,7 @@ const express = require('express'),
     bodyParser = require('body-parser'),
     mongoose = require('mongoose'),
     Models = require('./models.js');
-
+const cors = require('cors');
 const Movies = Models.Movie;
 const Users = Models.User;
 const app = express();
@@ -20,7 +20,7 @@ mongoose.connect('mongodb://localhost:27017/quikFlix', {
 
 app.use(morgan('common'));
 
-const cors = require('cors');
+
 
 let allowedOrigins = ['http://localhost:8080', 'http://testsite.com'];
 app.use(cors({
@@ -37,7 +37,7 @@ app.use(cors({
 let auth = require('./auth')(app);
 
 const passport = require('passport');
-const { check } = require('express-validator');
+const {check, validationResult } = require('express-validator');
 require('./passport');
 
 /*requests to navigate the site*/ 
@@ -110,7 +110,7 @@ app.post('/users', [
     check('userName', 'Username is required and must be at least 5 alphanumeric characters long.').isLength({min: 5}),
     check('userName', 'Username contains non alphanermic characters - not allowed').isAlphanumeric(),
     check('password', 'Password is required').not().isEmpty(),
-    check('Email', 'Email does not appear to be valid').isEmail()
+    check('email', 'Email does not appear to be valid').isEmail()
     ], (req, res) => {
 
     let errors = validationResult(req);
@@ -229,7 +229,11 @@ app.use((err, req, res, next) => {
 
 
 
-const port = process.env.PORT || 8080;
-app.listen(port, '0.0.0.0',() => {
-    console.log('Listening on Port ' + port);
-});
+// const port = process.env.PORT || 8080;
+// app.listen(port, '0.0.0.0',() => {
+//     console.log('Listening on Port ' + port);
+// });
+
+app.listen(8080, () => {
+    console.log('Your app is listening on port 8080.');
+  });
