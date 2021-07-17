@@ -1,0 +1,79 @@
+[{
+  "_id": {
+    "$oid": "60f3029643cba6f319111a70"
+  },
+  "movieList": [],
+  "userName": "waltwhitman",
+  "password": "$2b$10$nHMnxb1sAXQ2stn.M7PkVO2Qmq18zIYZcisIvi4/u1jHIzcrE.LAG",
+  "email": "walty@email.com",
+  "birthDate": {
+    "$date": {
+      "$numberLong": "-470534400000"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "60f34f7243cba6f319111a74"
+  },
+  "movieList": [],
+  "userName": "timmaman",
+  "password": "$2b$10$dCg.7oRZBzovoM/XwQaoe.5XBPuNzv9bTDZ4uEQgf0bR2w5d7t38i",
+  "email": "tim@stupidemail.com",
+  "birthDate": {
+    "$date": "1990-03-15T00:00:00Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "60f34fb743cba6f319111a77"
+  },
+  "movieList": [],
+  "userName": "slimjim",
+  "password": "$2b$10$GWkyrqwkW0.2PIwQl9OP2u7iSZj7lFAPcQ3Av2l5aySZ767/.H9Y6",
+  "email": "delicious@meatsnack.com",
+  "birthDate": {
+    "$date": "1983-12-15T00:00:00Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "60f3506543cba6f319111a7a"
+  },
+  "movieList": [],
+  "userName": "jamminjake",
+  "password": "$2b$10$16O56h8UdAT211pZ/5NZ3eWLx7E/PM3mHqtEe18MKbuNhnKcYbplq",
+  "email": "hippy@liketotallyman.com",
+  "birthDate": {
+    "$date": {
+      "$numberLong": "-648777600000"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "60f3508543cba6f319111a7d"
+  },
+  "movieList": [],
+  "userName": "hannybarbara",
+  "password": "$2b$10$mZQRw4soSE15ph3vMOj46.ffSdX5ZNwQ38H8cRgppAD4acm10XOO6",
+  "email": "wemadetomandjerry@cartoon.com",
+  "birthDate": {
+    "$date": {
+      "$numberLong": "-68601600000"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "60f3509e43cba6f319111a80"
+  },
+  "movieList": [],
+  "userName": "manlyman",
+  "password": "$2b$10$GcUNKaitc9fa5X7nmJs6NeUutYl5QoMjXCMNhUEtOv1Xgs1pI/MYe",
+  "email": "man@manman.com",
+  "birthDate": {
+    "$date": "1999-03-18T00:00:00Z"
+  },
+  "__v": 0
+}]

@@ -1,0 +1,182 @@
+[{
+  "_id": {
+    "$oid": "60d268a6acaf0f2101e0c738"
+  },
+  "title": "Fear and Loathing in Las Vegas",
+  "director": {
+    "name": "Terry Gilliam",
+    "birth_date": "1940-11-22",
+    "bio": "Terry Gilliam was born near Medicine Lake, Minnesota. When he was 12 his family moved to Los Angeles where he became a fan of MAD magazine. In his early twenties he was often stopped by the police who suspected him of being a drug addict and Gilliam had to explain that he worked in advertising. In the political turmoil in the 60's, Gilliam feared he would become a terrorist and decided to leave the USA. He moved to England and landed a job on the children's television show Do Not Adjust Your Set (1967) as an animator. There he met meet his future collaborators in Monty Python: Terry Jones, Eric Idle and Michael Palin. In 2006 he renounced his American citizenship."
+  },
+  "year": "1998",
+  "genre": {
+    "genrename": "Comedy",
+    "description": "Genre of film using humor as means of entertainment."
+  },
+  "image": "https://www.imdb.com/title/tt0120669/mediaviewer/rm1598101504/",
+  "description": "An oddball journalist and his psychopathic lawyer travel to Las Vegas for a series of psychedelic escapades.",
+  "featured": "true"
+},{
+  "_id": {
+    "$oid": "60d268d1acaf0f2101e0c739"
+  },
+  "title": "Saving Private Ryan",
+  "director": {
+    "name": "Steven Spielberg",
+    "birth_date": "1946-12-18",
+    "bio": "Steven Allan Spielberg is an American film director, producer, and screenwriter. He began his career in the New Hollywood era, and is one of the most commercially successful directors in history."
+  },
+  "year": "1998",
+  "genre": {
+    "genrename": "Drama",
+    "description": "Genre of stories intended to be of a more serious, sometimes heartfelt nature."
+  },
+  "image": "https://www.imdb.com/title/tt0120815/mediaviewer/rm1924732160/",
+  "description": "Following the Normandy Landings, a group of U.S. soldiers go behind enemy lines to retrieve a paratrooper whose brothers have been killed in action.",
+  "featured": "false"
+},{
+  "_id": {
+    "$oid": "60d268e5acaf0f2101e0c73a"
+  },
+  "title": "Shaun of the Dead",
+  "director": {
+    "name": "Edgar Wright",
+    "birth_date": "1974-04-18",
+    "bio": "Edgar Howard Wright (born 18 April 1974) is an English director, screenwriter, producer, and actor. He is best known for his comedic Three Flavours Cornetto film trilogy consisting of Shaun of the Dead (2004), Hot Fuzz (2007), and The World's End (2013), made with recurrent collaborators Simon Pegg, Nira Park and Nick Frost. He also collaborated with them as the director of the television series Spaced."
+  },
+  "year": "2004",
+  "genre": {
+    "genrename": "Comedy",
+    "description": "Genre of film using humor as means of entertainment."
+  },
+  "image": "https://www.imdb.com/title/tt0365748/mediaviewer/rm4187183360/?ref_=tt_ov_i",
+  "description": "Shaun (Simon Pegg) is a 30something loser with a dull, easy existence. When he's not working at the electronics store, he lives with his slovenly best friend, Ed (Nick Frost), in a small flat on the outskirts of London. The only unpredictable element in his life is his girlfriend, Liz (Kate Ashfield), who wishes desperately for Shaun to grow up and be a man. When the town is inexplicably overrun with zombies, Shaun must rise to the occasion and protect both Liz and his mother (Penelope Wilton).",
+  "featured": "true"
+},{
+  "_id": {
+    "$oid": "60d268f0acaf0f2101e0c73b"
+  },
+  "title": "Tropic Thunder",
+  "director": {
+    "name": "Ben Stiller",
+    "birth_date": "1965-11-30",
+    "bio": "The son of comedians Jerry Stiller and Anne Meara, Ben Stiller grew up in New York City. Early in his career, he wrote for Saturday Night Live and created the short-lived The Ben Stiller Show. ... Stiller has since starred in Zoolander, as well as the successful Meet the Parents and Night at the Museum films."
+  },
+  "year": "2008",
+  "genre": {
+    "genrename": "Comedy",
+    "description": "Genre of film using humor as means of entertainment."
+  },
+  "image": "https://www.imdb.com/title/tt0942385/mediaviewer/rm2796394240/?ref_=tt_ov_i",
+  "description": "Through a series of freak occurrences, a group of actors shooting a big-budget war movie are forced to become the soldiers they are portraying.",
+  "featured": "true"
+},{
+  "_id": {
+    "$oid": "60d268fbacaf0f2101e0c73c"
+  },
+  "title": "Shutter Island",
+  "director": {
+    "name": "Martin Scorsese",
+    "birth_date": "1942-11-17",
+    "bio": "Martin Charles Scorsese was born on November 17, 1942, in Flushing, New York. ... Although his parents \"didn't get\" his mania for movies, Scorsese felt he was headed in the right direction when a 10-minute comedy short earned him a $500 scholarship to New York University."
+  },
+  "year": "2010",
+  "genre": {
+    "genrename": "Thriller",
+    "description": "Genre which invokes the feeling of suspense and alarm."
+  },
+  "image": "https://www.imdb.com/title/tt1130884/mediaviewer/rm1814907136/?ref_=tt_ov_i",
+  "description": "In 1954, a U.S. Marshal investigates the disappearance of a murderer who escaped from a hospital for the criminally insane.",
+  "featured": "false"
+},{
+  "_id": {
+    "$oid": "60d268ffacaf0f2101e0c73d"
+  },
+  "title": "Raiders of the Lost Ark",
+  "director": {
+    "name": "Steven Spielberg",
+    "birth_date": "1946-12-18",
+    "bio": "Steven Allan Spielberg is an American film director, producer, and screenwriter. He began his career in the New Hollywood era, and is one of the most commercially successful directors in history."
+  },
+  "year": "1981",
+  "genre": {
+    "genrename": "Action",
+    "description": "Genre in which the characters are put into situations of harm, violence, and chaos."
+  },
+  "image": "https://www.imdb.com/title/tt0082971/mediaviewer/rm1612744448/",
+  "description": "In 1936, archaeologist and adventurer Indiana Jones is hired by the U.S. government to find the Ark of the Covenant before Adolf Hitler's Nazis can obtain its awesome powers.",
+  "featured": "false"
+},{
+  "_id": {
+    "$oid": "60d26919acaf0f2101e0c73e"
+  },
+  "title": "The Shining",
+  "director": {
+    "name": "Stanley Kubrick",
+    "birth_date": "1928-07-26",
+    "death_date": "1999-04-07",
+    "bio": "Stanley Kubrick was an American film director, producer, screenwriter, and photographer. He is frequently cited as one of the greatest filmmakers in cinematic history."
+  },
+  "year": "1980",
+  "genre": {
+    "genrename": "Horror",
+    "description": "Genre of film that uses suspense and mood to create the feeling of fear."
+  },
+  "image": "https://www.imdb.com/title/tt0081505/mediaviewer/rm3901111552/",
+  "description": "A family heads to an isolated hotel for the winter where a sinister presence influences the father into violence, while his psychic son sees horrific forebodings from both past and future.",
+  "featured": "false"
+},{
+  "_id": {
+    "$oid": "60d26923acaf0f2101e0c73f"
+  },
+  "title": "The Proposition",
+  "director": {
+    "name": "John Hillcoat",
+    "birth_date": "1961-08-14",
+    "bio": "John Hillcoat (born 1961) is an Australian screenwriter and film director. Hillcoat was born in Queensland, Australia, and was raised in Hamilton, Ontario, Canada. As a child, his paintings were featured in the Art Gallery of Hamilton. He has repeatedly worked with Nick Cave and also the band Depeche Mode."
+  },
+  "year": "2005",
+  "genre": {
+    "genrename": "Drama",
+    "description": "Genre of stories intended to be of a more serious, sometimes heartfelt nature."
+  },
+  "image": "https://www.imdb.com/title/tt0421238/mediaviewer/rm2987072256/",
+  "description": "A lawman apprehends a notorious outlaw and gives him nine days to kill his older brother, or else they'll execute his younger brother.",
+  "featured": "true"
+},{
+  "_id": {
+    "$oid": "60d2692bacaf0f2101e0c740"
+  },
+  "title": "Birdman or (The Unexpected Virtue of Ignorance)",
+  "director": {
+    "name": "Alejandro G. Iñárritu",
+    "birth_date": "1963-08-15",
+    "bio": "Alejandro González Iñárritu is a Mexican film director, producer, and screenwriter. He is known for making films about the human condition, and his projects have garnered critical acclaim and numerous accolades. His most notable films include Amores perros, 21 Grams, Babel, Biutiful, Birdman, and The Revenant."
+  },
+  "year": "2014",
+  "genre": {
+    "genrename": "Comedy",
+    "description": "Genre of film using humor as means of entertainment."
+  },
+  "image": "https://www.imdb.com/title/tt2562232/mediaviewer/rm3926180864/?ref_=tt_ov_i",
+  "description": "A washed-up superhero actor attempts to revive his fading career by writing, directing, and starring in a Broadway production.",
+  "featured": "true"
+},{
+  "_id": {
+    "$oid": "60d26934acaf0f2101e0c741"
+  },
+  "title": "The Revanant",
+  "director": {
+    "name": "Alejandro G. Iñárritu",
+    "birth_date": "1963-08-15",
+    "bio": "Alejandro González Iñárritu is a Mexican film director, producer, and screenwriter. He is known for making films about the human condition, and his projects have garnered critical acclaim and numerous accolades. His most notable films include Amores perros, 21 Grams, Babel, Biutiful, Birdman, and The Revenant."
+  },
+  "year": "2015",
+  "genre": {
+    "genrename": "Drama",
+    "description": "Genre of stories intended to be of a more serious, sometimes heartfelt nature."
+  },
+  "image": "https://www.imdb.com/title/tt1663202/mediaviewer/rm1354918144/",
+  "description": "A frontiersman on a fur trading expedition in the 1820s fights for survival after being mauled by a bear and left for dead by members of his own hunting team.",
+  "featured": "false"
+}]
