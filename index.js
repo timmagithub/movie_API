@@ -1,6 +1,5 @@
 const express = require('express'),
     morgan = require('morgan'),
-    bodyParser = require('body-parser'),
     mongoose = require('mongoose'),
     Models = require('./models.js');
 const cors = require('cors');
@@ -18,12 +17,11 @@ app.use(express.json());
 //     useFindAndModify: false
 // });
 
-mongoose.connect('process.env.CONNECTION_URI', {
+mongoose.connect(process.env.CONNECTION_URI, {
     useNewUrlParser: true, 
     useUnifiedTopology: true, 
     useFindAndModify: false
-}).
-catch(error => handleError(error));
+});
 
 app.use(morgan('common'));
 
