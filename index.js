@@ -22,13 +22,14 @@ mongoose.connect('process.env.CONNECTION_URI', {
     useNewUrlParser: true, 
     useUnifiedTopology: true, 
     useFindAndModify: false
-});
+}).
+catch(error => handleError(error));
 
 app.use(morgan('common'));
 
 
 
-let allowedOrigins = ['http://localhost:8080', 'http://testsite.com'];
+let allowedOrigins = ['http://localhost:8080', 'http://testsite.com','https://quikflix.herokuapp.com'];
 app.use(cors({
     origin: (origin, callback) => {
         if(!origin) return callback(null, true);
