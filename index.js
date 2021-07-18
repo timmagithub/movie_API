@@ -11,11 +11,6 @@ app.use(express.urlencoded({extended: true}));
 
 app.use(express.json());
 
-// mongoose.connect('mongodb://localhost:27017/quikFlix', {
-//     useNewUrlParser: true, 
-//     useUnifiedTopology: true, 
-//     useFindAndModify: false
-// });
 
 mongoose.connect(process.env.CONNECTION_URI, {
     useNewUrlParser: true, 
@@ -110,7 +105,7 @@ app.get('/directors/:name', passport.authenticate('jwt', {session:false}), (req,
     });
 });
 
-/* create a new user */
+/* create a new user (expecting json format) */
 app.post('/users', [
     check('userName', 'Username is required and must be at least 5 alphanumeric characters long.').isLength({min: 5}),
     check('userName', 'Username contains non alphanermic characters - not allowed').isAlphanumeric(),
