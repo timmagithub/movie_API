@@ -12,7 +12,13 @@ app.use(express.urlencoded({extended: true}));
 
 app.use(express.json());
 
-mongoose.connect('mongodb://localhost:27017/quikFlix', {
+// mongoose.connect('mongodb://localhost:27017/quikFlix', {
+//     useNewUrlParser: true, 
+//     useUnifiedTopology: true, 
+//     useFindAndModify: false
+// });
+
+mongoose.connect('process.env.CONNECTION_URI', {
     useNewUrlParser: true, 
     useUnifiedTopology: true, 
     useFindAndModify: false
@@ -237,3 +243,4 @@ app.listen(port, '0.0.0.0',() => {
 // app.listen(8080, () => {
 //     console.log('Your app is listening on port 8080.');
 //   });
+
