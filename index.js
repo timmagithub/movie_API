@@ -36,6 +36,8 @@ app.use(cors({
 
 let auth = require('./auth')(app);
 
+let hashedPassword = Users.hashPassword(req.body.password);
+
 const passport = require('passport');
 const {check, validationResult } = require('express-validator');
 require('./passport');
@@ -57,6 +59,21 @@ app.get('/movies', passport.authenticate('jwt', {session:false}), (req, res) => 
         });
 });    
 
+/* get user's profile */
+app.get('/users/:userName', passport.authenticate('jwt', {session:false}), (req, res) => {
+    Users.findOne({userName: req.params.userName})
+    .then((user) => {
+        if (!user) {
+            res.status(404).json(error + 'User not found.');
+        }
+        res.json(user);
+    })
+    .catch((err) => {
+        console.error(err);
+        res.status(500).send('Error ' + err)
+    }); 
+});
+
 /* get user's list of top movies */
 app.get('/users/:userName/myMovies', passport.authenticate('jwt', {session:false}), (req, res) => {
     Users.findOne({userName: req.params.userName})
@@ -73,6 +90,9 @@ app.get('/users/:userName/myMovies', passport.authenticate('jwt', {session:false
 app.get('/movies/:title', passport.authenticate('jwt', {session:false}), (req, res) => {
     Movies.findOne({title: req.params.title})
     .then((movie) => {
+        if (!movie) {
+            res.status(404).json(error + 'Movie not found.');
+        }
         res.json(movie);
     })
     .catch((err) => {
@@ -83,8 +103,11 @@ app.get('/movies/:title', passport.authenticate('jwt', {session:false}), (req, r
 
 /* get genre info by name */
 app.get('/genres/:genre', passport.authenticate('jwt', {session:false}), (req, res) => {
-    Movies.find({'genre.genrename': req.params.genre})
+    Movies.find({'genre.genreName': req.params.genre})
     .then((genre) => {
+        if (!genre) {
+            res.status(404).json(error + 'Movie not found.');
+        }
         res.json(genre);
     })
     .catch((err) => {
@@ -97,6 +120,9 @@ app.get('/genres/:genre', passport.authenticate('jwt', {session:false}), (req, r
 app.get('/directors/:name', passport.authenticate('jwt', {session:false}), (req, res) => {
     Movies.findOne({'director.name': req.params.name})
     .then((director) => {
+        if (!director) {
+            res.status(404).json(error + 'Movie not found.');
+        }
         res.json(director);
     })
     .catch((err) => {
@@ -105,12 +131,65 @@ app.get('/directors/:name', passport.authenticate('jwt', {session:false}), (req,
     });
 });
 
+/* add a new movie to database */
+app.post('/movies', [
+    check('title', 'Entry is missing a title. New movies require title. MUST be only alphenumeric characters.').not().isEmpty().isAlphanumeric(),
+    check('year', 'Year is required. MUST be number.').not().isEmpty().isAlphanumeric(),
+    check('genre', 'Genre is required. Genre must contain name and description. MUST be only alphenumeric characters.').not().isEmpty().isAlphanumeric(),
+    check('director', 'Director is required. Director mus have name, birthDate, and bio. MUST be only alphenumeric characters.').not().isEmpty().isAlphanumeric(),
+    check('image', 'Image is required. Provide link to image of moovie cover. MUST be only alphenumeric characters.').not().isEmpty().isAlphanumeric(),
+    check('description', 'Description is required. MUST be only alphenumeric characters.').not().isEmpty().isAlphanumeric(),
+    check('featured', 'Featured is required. Enter a true or false value. MUST be only alphenumeric characters.').not().isEmpty().isAlphanumeric()
+], passport.authenticate('jwt', {session:false}), (req, res) => {
+
+    let errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(422).json({errors: errors.array()});
+    }
+    
+    Movies.findOne({title: req.body.title})
+    .then((movie) => {
+        if (movie) {
+            return res.status(400).send(req.body.title + 'already exists.');
+        } else {
+            Movies
+                .create({
+                    title: req.body.title,
+                    year: req.body.year,
+                    genre: { genreName: req.body.genreName,
+                        description: req.body.description
+                    },
+                    director: { name: req.body.name,
+                        birthDate: req.body.birthDate,
+                        bio: req.body.bio
+                    },
+                    image: req.body.image,
+                    description: req.body.description,
+                    featured: req.body.featured
+                })
+                .then ((user) => {
+                    res.status(201).json(user)})
+                .catch((err) => {
+                    console.error(err);
+                    res.status(500).send('Error ' + err);
+                })
+        }
+    })
+    .catch((err) => {
+        console.error(err);
+        res.status(500).send('Error ' + err);
+    }); 
+});    
+
+
 /* create a new user (expecting json format) */
 app.post('/users', [
     check('userName', 'Username is required and must be at least 5 alphanumeric characters long.').isLength({min: 5}),
-    check('userName', 'Username contains non alphanermic characters - not allowed').isAlphanumeric(),
+    check('userName', 'Username contains non alphanumeric characters - not allowed.').isAlphanumeric(),
     check('password', 'Password is required').not().isEmpty(),
-    check('email', 'Email does not appear to be valid').isEmail()
+    check('password', 'Password must be 7 alphanumeric characters.').isAlphanumeric(),
+    check('email', 'Email does not appear to be valid').isEmail(),
+    check('birthDate', 'Birthdate is require. Format YEAR-MONTH-DATE.').not().isEmpty()
     ], (req, res) => {
 
     let errors = validationResult(req);
@@ -118,12 +197,10 @@ app.post('/users', [
         return res.status(422).json({errors: errors.array()});
     }
     
-    let hashedPassword = Users.hashPassword(req.body.password);
-    
     Users.findOne({userName: req.body.userName})
     .then((user) => {
         if (user) {
-            return res.status(400).send(req.body.userName + 'already exists');
+            return res.status(400).send(req.body.userName + 'already exists.');
         } else {
             Users
                 .create({
@@ -147,11 +224,24 @@ app.post('/users', [
 });
 
 /* update user info by userName */
-app.put('/users/:userName', passport.authenticate('jwt', {session:false}), (req, res) => {
+app.put('/users/:userName', [
+    check('userName', 'Username is required and must be at least 5 alphanumeric characters long.').isLength({min: 5}),
+    check('userName', 'Username contains non alphanumeric characters - not allowed.').isAlphanumeric(),
+    check('password', 'Password is required').not().isEmpty(),
+    check('password', 'Password must be 7 alphanumeric characters.').isAlphanumeric(),
+    check('email', 'Email does not appear to be valid').isEmail(),
+    check('birthDate', 'Birthdate is require. Format YEAR-MONTH-DATE.').not().isEmpty()
+], passport.authenticate('jwt', {session:false}), (req, res) => {
+
+    let errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(422).json({errors: errors.array()});
+    }
+
     Users.findOneAndUpdate({userName: req.params.userName},
         {$set: {
             userName: req.body.userName,
-            password: req.body.password,
+            password: hashedPassword,
             email: req.body.email,
             birthDate: req.body.birthDate
         }
@@ -177,7 +267,7 @@ app.post('/users/:userName/myMovies/:movieId', passport.authenticate('jwt', {ses
         {new: true},
         (err, updatedUser) => {
             if (err) {
-                console.errer(err);
+                console.error(err);
                 res.status(500).send('Error ' + err);
             } else {
                 res.json(updatedUser);
