@@ -10,7 +10,7 @@
   },
   "year": "1998",
   "genre": {
-    "genrename": "Comedy",
+    "genreName": "Comedy",
     "description": "Genre of film using humor as means of entertainment."
   },
   "image": "https://www.imdb.com/title/tt0120669/mediaviewer/rm1598101504/",
@@ -28,7 +28,7 @@
   },
   "year": "1998",
   "genre": {
-    "genrename": "Drama",
+    "genreName": "Drama",
     "description": "Genre of stories intended to be of a more serious, sometimes heartfelt nature."
   },
   "image": "https://www.imdb.com/title/tt0120815/mediaviewer/rm1924732160/",
@@ -46,7 +46,7 @@
   },
   "year": "2004",
   "genre": {
-    "genrename": "Comedy",
+    "genreName": "Comedy",
     "description": "Genre of film using humor as means of entertainment."
   },
   "image": "https://www.imdb.com/title/tt0365748/mediaviewer/rm4187183360/?ref_=tt_ov_i",
@@ -64,7 +64,7 @@
   },
   "year": "2008",
   "genre": {
-    "genrename": "Comedy",
+    "genreName": "Comedy",
     "description": "Genre of film using humor as means of entertainment."
   },
   "image": "https://www.imdb.com/title/tt0942385/mediaviewer/rm2796394240/?ref_=tt_ov_i",
@@ -82,7 +82,7 @@
   },
   "year": "2010",
   "genre": {
-    "genrename": "Thriller",
+    "genreName": "Thriller",
     "description": "Genre which invokes the feeling of suspense and alarm."
   },
   "image": "https://www.imdb.com/title/tt1130884/mediaviewer/rm1814907136/?ref_=tt_ov_i",
@@ -100,7 +100,7 @@
   },
   "year": "1981",
   "genre": {
-    "genrename": "Action",
+    "genreName": "Action",
     "description": "Genre in which the characters are put into situations of harm, violence, and chaos."
   },
   "image": "https://www.imdb.com/title/tt0082971/mediaviewer/rm1612744448/",
@@ -119,7 +119,7 @@
   },
   "year": "1980",
   "genre": {
-    "genrename": "Horror",
+    "genreName": "Horror",
     "description": "Genre of film that uses suspense and mood to create the feeling of fear."
   },
   "image": "https://www.imdb.com/title/tt0081505/mediaviewer/rm3901111552/",
@@ -137,7 +137,7 @@
   },
   "year": "2005",
   "genre": {
-    "genrename": "Drama",
+    "genreName": "Drama",
     "description": "Genre of stories intended to be of a more serious, sometimes heartfelt nature."
   },
   "image": "https://www.imdb.com/title/tt0421238/mediaviewer/rm2987072256/",
@@ -155,7 +155,7 @@
   },
   "year": "2014",
   "genre": {
-    "genrename": "Comedy",
+    "genreName": "Comedy",
     "description": "Genre of film using humor as means of entertainment."
   },
   "image": "https://www.imdb.com/title/tt2562232/mediaviewer/rm3926180864/?ref_=tt_ov_i",
@@ -173,7 +173,7 @@
   },
   "year": "2015",
   "genre": {
-    "genrename": "Drama",
+    "genreName": "Drama",
     "description": "Genre of stories intended to be of a more serious, sometimes heartfelt nature."
   },
   "image": "https://www.imdb.com/title/tt1663202/mediaviewer/rm1354918144/",
