@@ -36,8 +36,6 @@ app.use(cors({
 
 let auth = require('./auth')(app);
 
-let hashedPassword = Users.hashPassword(req.body.password);
-
 const passport = require('passport');
 const {check, validationResult } = require('express-validator');
 require('./passport');
@@ -196,6 +194,8 @@ app.post('/users', [
     if (!errors.isEmpty()) {
         return res.status(422).json({errors: errors.array()});
     }
+
+    let hashedPassword = Users.hashPassword(req.body.password);
     
     Users.findOne({userName: req.body.userName})
     .then((user) => {
@@ -237,6 +237,8 @@ app.put('/users/:userName', [
     if (!errors.isEmpty()) {
         return res.status(422).json({errors: errors.array()});
     }
+
+    let hashedPassword = Users.hashPassword(req.body.password);
 
     Users.findOneAndUpdate({userName: req.params.userName},
         {$set: {
