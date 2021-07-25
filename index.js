@@ -131,13 +131,13 @@ app.get('/directors/:name', passport.authenticate('jwt', {session:false}), (req,
 
 /* add a new movie to database */
 app.post('/movies', [
-    check('title', 'Entry is missing a title. New movies require title.').not().isEmpty().isAlphanumeric('en-US', {ignore: ' '}),
-    check('year', 'Year is required.').not().isEmpty(),
-    check('genre', 'Genre is required. Genre must contain name and description. ').not().isEmpty(),
-    check('director', 'Director is required. Director mus have name, birthDate, and bio. ').not().isEmpty(),
-    check('image', 'Image is required. Provide link to image of moovie cover. ').not().isEmpty(),
-    check('description', 'Description is required. ').not().isEmpty(),
-    check('featured', 'Featured is required. Enter a true or false value. ').not().isEmpty()
+    check('title', 'Entry is missing a title. New movies require title. MUST be alphanumeric[spaces allowed].').not().isEmpty().isAlphanumeric('en-US', {ignore: ' '}),
+    check('year', 'Year is required. MUST be alphanumeric.').not().isEmpty().isAlphanumeric(),
+    check('genre', 'Genre is required. Genre must contain name and description. MUST be alphanumeric[spaces allowed].').not().isEmpty().isAlphanumeric('en-US', {ignore: ' '}),
+    check('director', 'Director is required. Director mus have name, birthDate, and bio. MUST be alphanumeric[spaces allowed].').not().isEmpty().isAlphanumeric('en-US', {ignore: ' '}),
+    check('image', 'Image is required. Provide link to image of moovie cover. MUST be alphanumeric[spaces allowed].').not().isEmpty().isAlphanumeric('en-US', {ignore: ' '}),
+    check('description', 'Description is required. MUST be alphanumeric[spaces allowed].').not().isEmpty().isAlphanumeric('en-US', {ignore: ' '}),
+    check('featured', 'Featured is required. Enter a true or false value. MUST be alphanumeric[spaces allowed].').not().isEmpty().isAlphanumeric('en-US', {ignore: ' '})
 ], passport.authenticate('jwt', {session:false}), (req, res) => {
 
     let errors = validationResult(req);
