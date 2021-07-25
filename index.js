@@ -131,13 +131,13 @@ app.get('/directors/:name', passport.authenticate('jwt', {session:false}), (req,
 
 /* add a new movie to database */
 app.post('/movies', [
-    check('title', 'Entry is missing a title. New movies require title. MUST be only alphenumeric characters.').not().isEmpty(),
-    check('year', 'Year is required. MUST be number.').not().isEmpty(),
-    check('genre', 'Genre is required. Genre must contain name and description. MUST be only alphenumeric characters.').not().isEmpty(),
-    check('director', 'Director is required. Director mus have name, birthDate, and bio. MUST be only alphenumeric characters.').not().isEmpty(),
-    check('image', 'Image is required. Provide link to image of moovie cover. MUST be only alphenumeric characters.').not().isEmpty(),
-    check('description', 'Description is required. MUST be only alphenumeric characters.').not().isEmpty(),
-    check('featured', 'Featured is required. Enter a true or false value. MUST be only alphenumeric characters.').not().isEmpty()
+    check('title', 'Entry is missing a title. New movies require title. MUST be only alphenumeric characters.').not().isEmpty().isAlphanumeric(),
+    check('year', 'Year is required. MUST be number.').not().isEmpty().isAlphanumeric(),
+    check('genre', 'Genre is required. Genre must contain name and description. MUST be only alphenumeric characters.').not().isEmpty().isAlphanumeric(),
+    check('director', 'Director is required. Director mus have name, birthDate, and bio. MUST be only alphenumeric characters.').not().isEmpty().isAlphanumeric(),
+    check('image', 'Image is required. Provide link to image of moovie cover. MUST be only alphenumeric characters.').not().isEmpty().isAlphanumeric(),
+    check('description', 'Description is required. MUST be only alphenumeric characters.').not().isEmpty().isAlphanumeric(),
+    check('featured', 'Featured is required. Enter a true or false value. MUST be only alphenumeric characters.').not().isEmpty().isAlphanumeric()
 ], passport.authenticate('jwt', {session:false}), (req, res) => {
 
     let errors = validationResult(req);
