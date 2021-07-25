@@ -131,7 +131,7 @@ app.get('/directors/:name', passport.authenticate('jwt', {session:false}), (req,
 
 /* add a new movie to database */
 app.post('/movies', [
-    check('title', 'Entry is missing a title. New movies require title.').not().isEmpty(),
+    check('title', 'Entry is missing a title. New movies require title.').not().isEmpty().isAlphanumeric(str[en-US, ' ']),
     check('year', 'Year is required.').not().isEmpty(),
     check('genre', 'Genre is required. Genre must contain name and description. ').not().isEmpty(),
     check('director', 'Director is required. Director mus have name, birthDate, and bio. ').not().isEmpty(),
