@@ -20,11 +20,12 @@ mongoose.connect(process.env.CONNECTION_URI, {
 app.use(morgan("common"));
 
 let allowedOrigins = [
-  "http://localhost:8080",
-  "http://testsite.com",
-  "https://quikflix.herokuapp.com",
-  "http://localhost:1234",
-];
+  'http://localhost:8080',
+  'http://testsite.com',
+  'https://quikflix.herokuapp.com',
+  'http://localhost:1234',
+  'https://quikflixmovies.netlify.app/',
+]
 app.use(
   cors({
     origin: (origin, callback) => {
