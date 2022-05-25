@@ -369,8 +369,8 @@ app.post(
 
 /* delete movie from user's top movie list by id */
 app.delete(
-  "/users/:userName/myMovies/:movieId",
-  passport.authenticate("jwt", { session: false }),
+  '/users/:userName/myMovies/:movieId',
+  passport.authenticate('jwt', { session: false }),
   (req, res) => {
     Users.findOneAndUpdate(
       { userName: req.params.userName },
@@ -382,15 +382,15 @@ app.delete(
       { new: true },
       (err, updatedUser) => {
         if (err) {
-          console.error(err);
-          res.status(500).send("Error " + err);
+          console.error(err)
+          res.status(500).send('Error ' + err)
         } else {
-          res.json(updatedUser);
+          res.json(updatedUser)
         }
       }
-    );
+    )
   }
-);
+)
 
 /* delete user by userName */
 app.delete(
