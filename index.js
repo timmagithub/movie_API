@@ -24,7 +24,7 @@ let allowedOrigins = [
   'http://testsite.com',
   'https://quikflix.herokuapp.com',
   'http://localhost:1234',
-  'https://quikflixmovies.netlify.app/',
+  'https://quikflixmovies.netlify.app',
 ]
 app.use(
   cors({
